@@ -117,7 +117,7 @@ Para exemplos usando Python:
 
 ## Recursos adicionais e inspirações
 
-Alguns dos vídeos que assisti antes pra me preparar - e sim, não subestimem o poder dos vídeos jamais!
+Alguns dos vídeos que assisti antes pra me preparar - e sim, não subestimem o poder dos vídeos!
 
 [TechWorld with Nana](https://www.youtube.com/watch?v=PNhq_4d-5ek)
 
