@@ -1,4 +1,4 @@
-# Git & Github: O básico, o avançado e a prática
+# Git & Github: O básico e a prática
 
 Um breve guia sobre Controle de Versão utilizando as ferramentas do ambiente Git. Esse não é um texto definitivo, nem totalmente preciso, e está aberto a alterações e incrementações sugeridas por todos. São utilizados comandos comuns ao ambiente UNIX. 
 
@@ -76,14 +76,56 @@ git init
 git remote add origin git@github.com:repoOwner/repoName.git
 git push -u origin <branch>
 ```
-Nesse caso, de um repositório pessoal e inicial `<branch>`será main. Mas precisamos saber exatamente o que significa uma branch.
+Nesse caso, de um repositório pessoal e inicial ,`<branch> = main`. Mas precisamos saber exatamente o que significa uma branch.
+
+## Branch: uma linha paralela no desenvolvimento
+
+Uma branch (ramificação) nada mais é que uma linha de desenvolvimento criada a partir de um certo estado do repositório, que tem sua própria história independente da linha principal e de outros branches. Você pode implementar suas próprias modificações, testes e erros sem afetar a linha principal, e solicitar o `merge` quando se sentir confortável para compartilhar seu trabalho. Para criar uma branch:
+
+```sh
+git switch -c nome-da-branch
+```
+Como mencionado acima, deve-se configurar o branch remoto (criado no GitHub a partir da área **Branches**) de upstream do branch local:
+
+```sh
+git push -u origin nome-da-branch-remota
+```
+
+### Pull Request
+
+Um Pull Request (PR) é uma solicitação para integrar as mudanças de uma branch em outra (geralmente na `main`, mas não necessariamente). Ele pode ser criado na aba **Pull Requests** do repositório no GitHub.
+
+Durante esse processo, é comum que surjam incompatibilidades entre as duas branches — especialmente quando ambas modificaram as mesmas partes do código. Esses casos são chamados de **conflitos de merge** e são detectados automaticamente pelo Git. A resolução desses conflitos exige intervenção manual: o desenvolvedor precisa revisar as diferenças, decidir qual versão manter (ou como combiná-las) e então atualizar a branch. Esse processo pode envolver comandos mais avançados do Git e o uso do editor configurado previamente.
+
+## Release x Deploy
+
+Ao entrar em um repositório no GitHub, você deve ter reparado em duas opções: Deployments e Releases. Deploy é o processo técnico de instalar e mover o código da aplicação para um servidor ou ambiente, sem necessariamente liberá-lo ao usuário. Release é a disponibilização funcional desse código para os usuários finais, que pode ocorrer logo após o deploy ou separadamente.
+
+
+### 📦 Release no GitHub
+
+Uma **Release** no contexto GitHub é versão oficial e identificada do seu projeto, associada a uma tag é. Ela serve para:
+
+- marcar versões (ex: `v1.0.0`)
+- anexar binários/artefatos
+- documentar mudanças (changelog)
+
+Crie um release via browser:
+
+1. Vá no repositório
+2. Aba **Releases**
+3. Clique em **Draft a new release**
+4. Crie uma tag (ex: `v1.0.0`)
+5. Adicione descrição
+6. Publique
+
 
 
 [//]: # (Aqui vem a explicação mais "complicada", Rebase, Reset, etc...)
 
 ## Boas Práticas de Commit
 
-Há algumas convenções de formato de commit - ou nomeação de uma Branch - com o intuito de deixá-lo transparente e direto-ao-ponto. Assim dado `git commit -m"TAG: msg`, a `TAG`pode ser:
+Há algumas convenções de formato de commit - ou nomeação de uma Branch - com o intuito de deixá-lo transparente e direto-ao-ponto. Assim dado `git commit -m"TAG: msg"`, a `TAG`pode ser:
 
 -`docs`: Sinaliza mudanças na documentação, por exemplo, no `README`
 
@@ -99,3 +141,10 @@ Há algumas convenções de formato de commit - ou nomeação de uma Branch - co
 
 -`build`: Mudanças no processo de Build/Compilação. Ex: Makefile.
 
+-`perf`: Mudanças em alguma função/algoritmo com o fito de aumentar a perfomance. Ex: Redução de complexidade O(n²) para O(n) (Perdão aos amigos da Elétrica).
+
+## Bibliografia
+
+- https://git-scm.com/learn
+- https://akitaonrails.com/2020/02/05/akitando-70-entendendo-git-nao-e-um-tutorial/
+- https://www.atlassian.com/br/git/tutorials/
