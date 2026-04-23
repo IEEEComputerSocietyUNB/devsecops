@@ -97,6 +97,82 @@ Um Pull Request (PR) é uma solicitação para integrar as mudanças de uma bran
 
 Durante esse processo, é comum que surjam incompatibilidades entre as duas branches — especialmente quando ambas modificaram as mesmas partes do código. Esses casos são chamados de **conflitos de merge** e são detectados automaticamente pelo Git. A resolução desses conflitos exige intervenção manual: o desenvolvedor precisa revisar as diferenças, decidir qual versão manter (ou como combiná-las) e então atualizar a branch. Esse processo pode envolver comandos mais avançados do Git e o uso do editor configurado previamente.
 
+## Workflow Clássico
+
+Antes de ir para um Branch, certifique-se que está sincronizado com a linha principal com:
+
+```sh
+git checkout main # checkout troca de branch
+git pull
+```
+Após realizar suas mudanças, que podem ser muitas e se desenrolar por diversos arquivos, pode-se visualizar:
+
+- Quais arquivos foram modificados
+- Quais arquivos ainda não tem registro no .git (Untracked files)
+- Se o branch local está sincronizado com o branch remoto
+
+Com o comando:
+
+```sh
+git status
+```
+
+Adicionamos os arquivos modificados ou novos à área de Staging e commitamos:
+
+```sh
+git add .
+git commit -m"msg"
+```
+Essa forma mais geral não é recomendada, tanto pela possibilidade de perder de vista o que se está incluindo, tanto pelo fato de possivelmente colocar várias mudanças, muitas vezes com intuitos diferentes, sobre um mesmo commit. Dessa forma, se fizemos alterações no Front e no BackEnd, e essas alterações são independentes, façamos:
+
+```sh
+git add <lista de arquivos 1>
+git commit -m"msg1"
+git add <lista de arquivos 2>
+git commit -m"msg2"
+```
+## Editando Commits
+
+Caso você tenha feito um commit, mas queira editar o seu texto, faça (apenas o último commit):
+
+```sh
+git commit --amend -m"nova msg"
+```
+Ainda, caso tenha esquecido algum arquivo:
+
+```sh
+git add <lista de arquivos esquecidos>
+git commit --amend --no-edit # no-edit é opcional, apenas para manter a mensagem anterior
+```
+
+### Reset
+
+Suponha que você quer descartar **N** commits, ainda não "pushados" para o repositório remoto. Há trẽs maneiras de fazê-lo, dependendo do quão radical querer ser:
+
+#### Soft
+
+Desfaz os commits, mas mantém as alterações nos arquivos e os deixa na Staging Tree - o estado em que você deu `git add <arquivos>` mas não commitou.
+
+```sh
+git reset --soft HEAD~N
+```
+
+#### Mixed
+
+Desfaz os commits e também os tira da Staging Tree.
+
+```sh
+git reset --mixed HEAD~N
+```
+
+#### Hard
+
+Desfaz os commits, tira-os da Staging Tree e ***desfaz as alterações***. Basicamente, reseta o projeto para o estado demarcado pelo commit N-1.
+
+```sh
+git reset --hard HEAD~N
+```
+
 ## Release x Deploy
 
 Ao entrar em um repositório no GitHub, você deve ter reparado em duas opções: Deployments e Releases. Deploy é o processo técnico de instalar e mover o código da aplicação para um servidor ou ambiente, sem necessariamente liberá-lo ao usuário. Release é a disponibilização funcional desse código para os usuários finais, que pode ocorrer logo após o deploy ou separadamente.
