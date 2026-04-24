@@ -63,7 +63,7 @@ Uma lista ligada é uma estrutura clássica da Computação. Basicamente, temos 
 
 Dessa forma, o Git, através de diversos algoritmos, fornece uma interface para verificar as mudanças ocorridas em um artefato. Esse seria um uso 'unidimensional' do Git. 
 
-
+![alt text](listaligada.png)
 
 ### Diferentes histórias
 
